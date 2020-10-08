@@ -1,6 +1,6 @@
 // ===============================================================================================================
 // ===============================================================================================================
-// Am Anfang ein paar Bytes Platz lassen. Besser haben als brauchen.
+// Am Anfang ein paar Bytes Platz lassen. Haben ist besser als brauchen.
 const int settingStart = 10;
 const int settingOffset = sizeof(setting_t) + 10;
 
@@ -106,7 +106,24 @@ byte SaveSettings(struct setting_t settings) {
   Serial.println("Speichern in Slot: " + String(slot));
 
   int e = slotToEEPROM(slot);
-  eepromWrite(e, &settings, sizeof(settings));
+  eepromWrite(e, &settings, sizeof(setting_t));
+
+  return slot;
+}
+
+// ===============================================================================================================
+// ===============================================================================================================
+byte LoadSettings(struct setting_t &settings) {
+  byte slot = findSettingSlot(settings.teiler);
+
+  if (slot == 255) {
+    return 255;
+  }
+
+  Serial.println("Laden aus Slot: " + String(slot));
+
+  int e = slotToEEPROM(slot);
+  eepromRead(e, &settings, sizeof(setting_t));
 
   return slot;
 }
@@ -122,16 +139,22 @@ void test(void) {
   setting_t s;
 
   s.teiler = 120;
+  s.buzzeatdeltatemp=42;
   SaveSettings(s);
   Serial.println("120 Speicherslot: "+String(findSettingSlot(s.teiler)));
 
   s.teiler = 1220;
+  s.buzzeatdeltatemp=142;
   SaveSettings(s);
   Serial.println("1220 Speicherslot: "+String(findSettingSlot(s.teiler)));
 
   s.teiler = 120;
   Serial.println("120 Leseslot: "+String(findSettingSlot(s.teiler)));
+  LoadSettings(s);
+  Serial.println("120 Value: "+String(s.buzzeatdeltatemp));
 
   s.teiler = 1220;
   Serial.println("1220 Leseslot: "+String(findSettingSlot(s.teiler)));
+  LoadSettings(s);
+  Serial.println("1220 Value: "+String(s.buzzeatdeltatemp));
 }
