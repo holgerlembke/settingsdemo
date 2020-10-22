@@ -2,12 +2,12 @@
 
 ## Motivation:
 
-Zur Spitzenerkennung ist im Stecker von meinem Lötdings deie eine Hälfte eines
-Spannungsteilers, am analogen Eingang die andere Hälfte. Über den Spannungswert als
+Zur Spitzenerkennung ist im Stecker von meinem LÃ¶tdings die eine HÃ¤lfte eines
+Spannungsteilers, am analogen Eingang die andere HÃ¤lfte. Ãœber den Spannungswert als
 "Index" werden die individuellen Spitzendaten in einer dynamischen Struktur (genannt Slot)
 im EEPROM abgelegt.
 
-Der "Indexwert" benötigt ein gewisse Toleranz (wg. Messunsicherheit). 
+Der "Indexwert" benÃ¶tigt ein gewisse Toleranz (wg. Messunsicherheit). 
 
 Diese Sammlung soll ein beispielhaftes Vorgehen zeigen.
 
